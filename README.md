@@ -1,6 +1,8 @@
 # Flask_VUE_API_SQL
 RESTfull API applicaton
 What jsonify SQL and send via API at frontend VUE
+![Screenshot from 2021-03-21 18-00-32](https://user-images.githubusercontent.com/29804069/111898082-a9bc5280-8a45-11eb-8ff5-9c98c3b4e38c.png)
+CSS is Bootstrap 4 from cdn
 
 VUE load from CDN and script read at index.html
 API is a path /api is dict from Flask SQLalchemy model Post
