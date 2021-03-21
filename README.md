@@ -1,2 +1,3 @@
 # Flask_VUE_API_SQL
-restfull api app
+RESTfull API applicaton
+What jsonify SQL and send via API at frontend VUE
