@@ -12,17 +12,24 @@
 
 <div class="jumbotron jumbotron-fluid">
 <div class="container" id="app">
-    <h1 class="display-4">[[pb.Title]]</h1>
-    <p class="lead">[[pb.Text]]</p>
-    <p class="lead">[[pb.Time]]</p>
+    <h1 class="display-4">[[pb.title]]</h1>
+    <hr>
+    <p class="lead">[[pb.text]]</p>
+    <hr>
+    <p class="lead">[[pb.time]]</p>
+    <hr>
+    <p class="lead">[[pb.id]]</p>
 </div>
+</template>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 
 <script>
+
 var app = new Vue({
     el:'#app',
     delimiters: ['[[',']]'],
@@ -35,7 +42,7 @@ var app = new Vue({
     },
     methods: {
         fetchData: function () {
-            this.$http.get('/api').then(response => {
+            this.$http.get('/posts/1').then(response => {
                 this.pb = response.body;
             }, response => {
                 console.log("error");

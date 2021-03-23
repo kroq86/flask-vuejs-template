@@ -3,13 +3,15 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from forms import PostForm
 from flask import request
-
-
+from flask_marshmallow import Marshmallow
+from flask_restful import Api, Resource
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
+api = Api(app)
 
 
 @app.route('/admin', methods=['POST','GET'])
@@ -17,28 +19,16 @@ def create_post():
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
-
-        # try:
         post = Post(title=title, text=body)
         db.session.add(post)
         db.session.commit()
-        # except:
-        #     print('error in Post')
-
     form = PostForm()
     return render_template('admin.html', form = form)    
+
 
 @app.route('/')
 def index_page():
     return render_template('index.html', name='')
-
-
-@app.route('/api')
-def api():
-    myDict = {"Title":ttitle, 
-              "Text":ttext,
-              "Time":ttime}
-    return json.dumps(myDict)
 
 
 class Post(db.Model):
@@ -51,23 +41,64 @@ class Post(db.Model):
         super(Post, self).__init__(*args, **kwargs)
 
     def __repr__(self):
-        return self.text
+        return self.title
 
 
-# def start():
-#     db.create_all()
-#     admin = Post(title='Как очищают воду? Экскурсия по КОС', 
-#                  text='Представители «Нижневартовских коммунальных систем» провели экскурсию по канализационно-очистным сооружениям города. Обо всех стадиях очистки и обеззараживания сточных вод специалисты рассказали журналистам, общественникам, представителям администрации и депутатам Думы города. Сточные воды проходят несколько этапов обработки, в среднем на весь процесс требуется порядка 18-ти часов. Начинается всё с механической очистки от мусора и песка, затем стоки разделяют на твердую и жидкую фракции и проводят очистку биологическую. В этом этапе  задействованы полезные бактерии.')
-#     db.session.add(admin)    
-#     db.session.commit()
-#     return Post.query.all()
+class PostSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "title", "text", "time")
+        
+        
+post_schema = PostSchema()
+posts_schema = PostSchema(many=True)
 
 
-body = Post.query.all()
-ttitle = str(body[0].title)
-ttext = str(body[0].text)
-ttime = str(body[0].time)
+class PostListResource(Resource):
+    def get(self):
+        posts = Post.query.all()
+        return posts_schema.dump(posts)
+
+    def post(self):
+        new_post = Post(
+            title=request.json['title'],
+            content=request.json['text'],
+            time=request.json['time']
+        )
+        db.session.add(new_post)
+        db.session.commit()
+        return post_schema.dump(new_post)
+    
+    
+class PostResource(Resource):
+    def get(self, post_id):
+        post = Post.query.get_or_404(post_id)
+        return post_schema.dump(post)
+
+    def patch(self, post_id):
+        post = Post.query.get_or_404(post_id)
+
+        if 'title' in request.json:
+            post.title = request.json['title']
+        if 'text' in request.json:
+            post.content = request.json['text']
+        if 'time' in request.json:
+            post.content = request.json['time']
+
+        db.session.commit()
+        return post_schema.dump(post)
+
+    def delete(self, post_id):
+        post = Post.query.get_or_404(post_id)
+        db.session.delete(post)
+        db.session.commit()
+        return '', 204
+    
+
+api.add_resource(PostListResource, '/posts')
+api.add_resource(PostResource, '/posts/<int:post_id>')
 
 
 if __name__== "__main__":
     app.run(debug=True)
+    
+    
