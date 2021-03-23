@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>Samotlor News</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+<h1>ADMIN Page</h1>
+<br>
+<br>
+{% block content%}
+
+<form class="form-group" action="{{ url_for('create_post')}}" method='POST'>
+   
+    {% for field in form %}
+        <div class="formGroupExampleInput">
+            {{ field.label() }}
+            {{ field() }}
+        </div>
+    {% endfor %}
+
+    <button class="btn btn-primary" type="submit" onclick=""> ADD </button>
+</form>
+
+{% endblock %}
+
+<style scoped> body{
+     margin-left: auto;
+    margin-right: auto;
+    width: 16em;
+    box-sizing: border-box;
+    } </style>
+
+</body>
+
+</html>
