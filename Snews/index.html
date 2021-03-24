@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Samotlor News</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>Samotlor News</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="/static/main.css">
+</head>
+<body>
+
+
+<div class="jumbotron jumbotron-fluid">
+<div class="container" id="app">
+    <button @click="down">PREV</button>
+    <button @click="up">NEXT</button>
+    <h1 class="display-4">[[pb.title]]</h1>
+    <hr>
+    <p class="lead">[[pb.text]]</p>
+    <hr>
+    <p class="lead">[[pb.time]]</p>
+    <hr>
+    <p class="lead">[[pb.id]]</p>
+</div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+<script>
+
+var app = new Vue({
+    el:'#app',
+    delimiters: ['[[',']]'],
+    data:{
+        count : 1,
+        pb:{}
+    },
+
+    mounted: function () {
+        this.fetchData();
+    },
+    update: function () {
+
+    },
+    methods: {
+        fetchData: function () {
+            this.$http.get(`/posts/${this.count}`).then(response => {
+                this.pb = response.body;
+            }, response => {
+                console.log("error");
+            });
+        },
+        up() {
+            this.count++; this.fetchData();
+        },
+        down() {
+            this.count--; this.fetchData();
+        },
+        
+
+    }
+})
+
+
+</script>
+{% endblock %}
+</body>
+</html>
