@@ -9,27 +9,23 @@
 <link rel="stylesheet" href="/static/main.css">
 </head>
 <body>
-
-
-<div class="jumbotron jumbotron-fluid">
+ 
+<div class="jumbotron">
 <div class="container" id="app">
-    <button @click="down">PREV</button>
-    <button @click="up">NEXT</button>
-    <h1 class="display-4">[[pb.title]]</h1>
+<div v-for="post in pb" :key="post.id">
+    <h1 class="display-4">[[post.title]]</h1>
     <hr>
-    <p class="lead">[[pb.text]]</p>
+    <p class="lead">[[post.text]]</p>
     <hr>
-    <p class="lead">[[pb.time]]</p>
+    <p class="lead">[[post.time]]</p>
     <hr>
-    <p class="lead">[[pb.id]]</p>
 </div>
 </div>
-
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
-
 <script>
 
 var app = new Vue({
@@ -43,30 +39,19 @@ var app = new Vue({
     mounted: function () {
         this.fetchData();
     },
-    update: function () {
-
-    },
+  
     methods: {
         fetchData: function () {
-            this.$http.get(`/posts/${this.count}`).then(response => {
-                this.pb = response.body;
+            this.$http.get(`/posts`).then(response => {
+                this.pb = response.body; 
             }, response => {
-                console.log("error");
+                console.log("error"); 
             });
         },
-        up() {
-            this.count++; this.fetchData();
-        },
-        down() {
-            this.count--; this.fetchData();
-        },
-        
-
     }
 })
-
-
 </script>
 {% endblock %}
+
 </body>
 </html>
