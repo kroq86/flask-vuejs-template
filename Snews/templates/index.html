@@ -10,48 +10,29 @@
 </head>
 <body>
  
+
+
 <div class="jumbotron">
 <div class="container" id="app">
 <div v-for="post in pb" :key="post.id">
     <h1 class="display-4">[[post.title]]</h1>
     <hr>
     <p class="lead">[[post.text]]</p>
-    <hr>
-    <p class="lead">[[post.time]]</p>
-    <hr>
+    <a class="btn btn-secondary" href="/post">Link</a>
 </div>
 </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-{% block scripts %}
-<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
-<script>
-
-var app = new Vue({
-    el:'#app',
-    delimiters: ['[[',']]'],
-    data:{
-        count : 1,
-        pb:{}
-    },
-
-    mounted: function () {
-        this.fetchData();
-    },
-  
-    methods: {
-        fetchData: function () {
-            this.$http.get(`/posts`).then(response => {
-                this.pb = response.body; 
-            }, response => {
-                console.log("error"); 
-            });
-        },
-    }
-})
-</script>
-{% endblock %}
 
 </body>
+
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+<script type="text/javascript"
+src="{{ url_for('static', filename='app.js') }}"></script>
+
+{% endblock %}
+
+
 </html>
