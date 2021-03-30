@@ -9,6 +9,7 @@ from flask_restful import Api, Resource
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config ['TEMPLATES_AUTO_RELOAD'] = True
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
@@ -29,6 +30,10 @@ def create_post():
 @app.route('/')
 def index_page():
     return render_template('index.html', name='')
+
+@app.route('/post')
+def post_page():
+    return render_template('post.html', name='')
 
 
 class Post(db.Model):
@@ -56,7 +61,7 @@ posts_schema = PostSchema(many=True)
 class PostListResource(Resource):
     def get(self):
         posts = Post.query.all()
-        return posts_schema.dump(posts)
+        return posts_schema.jsonify(posts)
 
     def post(self):
         new_post = Post(
@@ -72,7 +77,7 @@ class PostListResource(Resource):
 class PostResource(Resource):
     def get(self, post_id):
         post = Post.query.get_or_404(post_id)
-        return post_schema.dump(post)
+        return post_schema.jsonify(post)
 
     def patch(self, post_id):
         post = Post.query.get_or_404(post_id)
