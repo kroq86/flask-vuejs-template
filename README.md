@@ -22,7 +22,7 @@ CSS is Bootstrap 4 from cdn
 
 VUE load from CDN and script read at index.html/ FLASK local load JS files
 
-API is a path /api for all, or /post/1 for id, dictionary from Flask model Post
+API is a path /posts for all, or /post/1 for id, dictionary from Flask model Post
 ![API](https://user-images.githubusercontent.com/29804069/111898150-061f7200-8a46-11eb-82d0-9dc8b1a90c73.png)
 
 #### CRUD
