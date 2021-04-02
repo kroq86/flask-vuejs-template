@@ -1,5 +1,5 @@
-# Flask_VUE_API_SQL
-RESTfull API applicaton
+# Flask_VUE
+RESTfull API 
 What jsonify SQL and send via API at frontend VUE
 ![VUE](https://user-images.githubusercontent.com/29804069/111898146-fef86400-8a45-11eb-87b3-001912d1211b.png)
 
