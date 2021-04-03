@@ -25,4 +25,3 @@ def test_resource_one_patch(client):
 def test_secure_resource_fail(client):
     resp = client.get('/posts/1')
     assert resp.status_code == 401
-

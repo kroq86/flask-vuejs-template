@@ -20,5 +20,15 @@ var app = new Vue({
     }
 })
 
-
-
+new Vue({
+    el: '#app2',
+    data: {
+      message: 'Hello, i need smooth animation when text added(click me please)'
+    },
+    methods: {
+        addText() {
+      console.log('1');
+          TweenLite.to(document.getElementById('test'), 2, {text:"This is animation with GSAP (vue plugin to animate anything) and i don't know how to animate it smooth", ease:Linear.easeNone});
+      }
+    }
+  })

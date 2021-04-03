@@ -2,36 +2,49 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="/static/unnamed.jpg" type="image/jpg">
+<title>Samotlor News</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>Samotlor News</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/static/main.css">
 </head>
 
 <body>
-<h1>ADMIN Page</h1>
-<br>
-<br>
+<div class="jumbotron jumbotron-fluid">
+<div class="container-fluid text-center">
+
+    <form>
+        <div class="form-group">
+          <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+      </form>
 {% block content%}
 
-<form class="form-group" action="{{ url_for('create_post')}}" method='POST'>
-   
+<h3 class="display-5">ADMIN Page</h3>
+
+<form class="form-group" action="{{ url_for('create_post')}}" method='POST'>  
     {% for field in form %}
         <div class="formGroupExampleInput">
             {{ field.label() }}
             {{ field() }}
+            
+            
         </div>
     {% endfor %}
 
     <button class="btn btn-primary" type="submit" onclick=""> ADD </button>
 </form>
-
 {% endblock %}
 
+</div>
+</div>
 <style scoped> body{
      margin-left: auto;
     margin-right: auto;
-    width: 16em;
     box-sizing: border-box;
     } </style>
 

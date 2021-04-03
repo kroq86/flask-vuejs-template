@@ -2,33 +2,67 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Samotlor News</title>
+<link rel="shortcut icon" href="/static/unnamed.jpg" type="image/jpg">
+<title>Samotlor.tv</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>Samotlor News</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/static/main.css">
 </head>
 <body>
- 
-
+<div id="wrap">
+<div class="fixed-top mx-auto" style="width: 700px;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a class="navbar-brand" href="/">
+<img src="/static/unnamed.jpg" width="30" height="30" class="d-inline-block align-top" alt="Новости Самотлор">
+амотлор
+</a>  
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav">
+<li class="nav-item active">
+<a class="nav-link" href="/">Наши телепроекты <span class="sr-only">(current)</span></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="#">Информация</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="#">Прямой эфир</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
 
 <div class="jumbotron">
+<div class="col-sm-7 bg-light p-1 border">
 <div class="container" id="app">
 <div v-for="post in pb" :key="post.id">
-    <h1 class="display-4">[[post.title]]</h1>
-    <hr>
-    <p class="lead">[[post.text]]</p>
-    <a class="btn btn-secondary" href="/post">Link</a>
+<h3 class="display-5">[[post.title]]</h3>
+<img :src="'/static/'+`${post.id}`+'.png'" width="400" height="300" class="img-thumbnail" alt="image">
+<p class="items-text" data-toggle="collapse" id="optional`${post.id}`">[[post.text]]</p>
+<a data-toggle="collapse" data-target="#optional`${post.id}`" class="btn btn-default">Развернуть</a>
+
+<hr>
+<p>
+</div>
 </div>
 </div>
 </div>
 
-</body>
+
+
 
 {% block scripts %}
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.0.5/vue-router.cjs.js"></script>
 <script type="text/javascript"
 src="{{ url_for('static', filename='app.js') }}"></script>
 
