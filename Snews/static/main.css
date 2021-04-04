@@ -8,9 +8,6 @@ display: -webkit-box;
 -webkit-box-orient: vertical;
 }
 
-.footer {
-justify-content: center;
-}
 
 #wrap { 
 max-width: 1550px; 
