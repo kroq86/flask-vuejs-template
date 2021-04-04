@@ -36,6 +36,6 @@ API is a path /posts for all, or /post/1 for id, dictionary from Flask model Pos
 ``` bash
 cd Snews
 pip3 install requirements.txt
-export FLASK_APP=run.py 
+export FLASK_APP=app.py 
 flask run
 
